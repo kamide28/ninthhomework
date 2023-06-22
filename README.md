@@ -100,3 +100,4 @@ URLの共通部分：http://localhost:8080
 | PACTH   | ResponseEntity<Map<String, String>> update(@PathVariable("id") int id, @RequestBody UpdateForm updateForm)  <br> `curl --location --request PATCH 'http://localhost:8080/character/21' \--header 'Content-Type: application/json' \--data '{"name" :"メイ","age" : 4}'` | ・指定されたIDデータが更新されること <br> ・IDが存在しない時はエラー情報を返すこと       |
 | DELETE  | ResponseEntity<Map<String, String>> delete(@PathVariable("id") int id) {characterService.deleteCharacter(id) <br> `curl --location --request DELETE 'http://localhost:8080/character/21'`                                                                             | ・指定されたIDの情報が削除されること<br> ・IDが存在しない時はエラー情報を返すこと        |
 
+gitでずれた理由はなぜた探索中🧐テスト！！！
