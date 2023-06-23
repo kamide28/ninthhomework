@@ -42,7 +42,7 @@ public class CharacterListController {
     @PostMapping("/characters")
     public ResponseEntity<Map<String, String>> create
             (@RequestBody @Validated CreateForm createForm, UriComponentsBuilder uriBuilder) {
-        Character character = characterService.createCharacter(createForm);
+        Character character = characterService.createCharacter(createForm.getName(), createForm.getAge());
 
         URI url = uriBuilder
                 .path("/characters/" + character.getId())

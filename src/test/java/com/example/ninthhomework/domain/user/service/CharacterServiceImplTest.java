@@ -105,7 +105,7 @@ class CharacterServiceImplTest {
         CreateForm createdCharacter = new CreateForm("mei", 5);
         Character character = new Character(createdCharacter.getName(), createdCharacter.getAge());
         doNothing().when(characterMapper).createCharacter(character);
-        charactersServiceImpl.createCharacter(createdCharacter);
+        charactersServiceImpl.createCharacter(createdCharacter.getName(), createdCharacter.getAge());
 
         verify(characterMapper, times(1)).createCharacter(character);
     }
