@@ -145,7 +145,8 @@ class CharacterListControllerTest {
     @Test
     public void 新規のデータが登録できること() throws Exception {
         CreateForm inputData = new CreateForm("mei", 5);
-        doReturn(new Character(1, "mei", 5)).when(characterServiceImpl).createCharacter(inputData);
+        doReturn(new Character(1, "mei", 5))
+                .when(characterServiceImpl).createCharacter(inputData.getName(), inputData.getAge());
 
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String requestBody = ow.writeValueAsString(inputData);

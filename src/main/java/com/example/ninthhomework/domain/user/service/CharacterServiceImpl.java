@@ -1,6 +1,5 @@
 package com.example.ninthhomework.domain.user.service;
 
-import com.example.ninthhomework.controller.CreateForm;
 import com.example.ninthhomework.domain.user.model.Character;
 import com.example.ninthhomework.exception.NotFoundException;
 import com.example.ninthhomework.mapper.CharacterMapper;
@@ -34,8 +33,8 @@ public class CharacterServiceImpl implements CharacterService {
         return this.characterMapper.searchById(id).orElseThrow(() -> new NotFoundException(id));
     }
 
-    public Character createCharacter(CreateForm createForm) {
-        Character character = new Character(createForm.getId(), createForm.getName(), createForm.getAge());
+    public Character createCharacter(String name, Integer age) {
+        Character character = new Character(name, age);
         characterMapper.createCharacter(character);
         return character;
     }

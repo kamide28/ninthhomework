@@ -12,7 +12,6 @@ public class CreateForm {
     @NotNull
     private Integer age;
     
-
     public CreateForm(String name, Integer age) {
         this.name = name;
         this.age = age;
