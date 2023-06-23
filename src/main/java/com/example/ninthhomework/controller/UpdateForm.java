@@ -5,7 +5,7 @@ public class UpdateForm {
     private String name;
 
     private Integer age;
-    
+
     public String getName() {
         return name;
     }
@@ -14,4 +14,8 @@ public class UpdateForm {
         return age;
     }
 
+    public UpdateForm(String name, Integer age) {
+        this.name = name;
+        this.age = age;
+    }
 }

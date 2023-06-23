@@ -10,11 +10,11 @@ public class CreateForm {
     @NotNull
     private Integer age;
 
-    public CreateForm(int id, String name, Integer age) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-    }
+//    public CreateForm(int id, String name, Integer age) {
+//        this.id = id;
+//        this.name = name;
+//        this.age = age;
+//    }
 
     public CreateForm(String name, Integer age) {
         this.name = name;
