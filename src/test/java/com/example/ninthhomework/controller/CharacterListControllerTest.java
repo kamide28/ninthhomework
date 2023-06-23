@@ -141,16 +141,16 @@ class CharacterListControllerTest {
 
     @Test
     public void 新規のデータが登録できること() throws Exception {
-        CreateForm inputdata = new CreateForm("mei", 5);
-        doReturn(new Character(10, "mei", 5)).when(characterServiceImpl).createCharacter(inputdata);
+        CreateForm inputData = new CreateForm("mei", 5);
+        doReturn(new Character(1, "mei", 5)).when(characterServiceImpl).createCharacter(inputData);
 
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String requestBody = ow.writeValueAsString(inputdata);
+        String requestBody = ow.writeValueAsString(inputData);
 
         String response = mockMvc.perform(post("/characters")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
-                .andExpect(status().isOk())
+                .andExpect(status().is(201))
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
         JSONAssert.assertEquals("""
                 {
@@ -159,12 +159,13 @@ class CharacterListControllerTest {
                 """, response, JSONCompareMode.STRICT);
     }
 
+
     @Test
     public void 入力データで更新ができること() throws Exception {
-        int id = 10;
         UpdateForm updateForm = new UpdateForm("satuki", 10);
-        Character character = new Character(id, updateForm.getName(), updateForm.getAge());
-        doReturn(character).when(characterServiceImpl).updateCharacter(id, updateForm.getName(), updateForm.getAge());
+        //id=1が割り振られると仮定する
+        Character character = new Character(1, updateForm.getName(), updateForm.getAge());
+        doReturn(character).when(characterServiceImpl).updateCharacter(1, updateForm.getName(), updateForm.getAge());
 
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String requestBody = ow.writeValueAsString(updateForm);
@@ -183,8 +184,8 @@ class CharacterListControllerTest {
 
     @Test
     public void 指定されたIDのデータが削除できること() throws Exception {
-        doNothing().when(characterServiceImpl).deleteCharacter(10);
-        String response = mockMvc.perform(delete("/characters/10")
+        doNothing().when(characterServiceImpl).deleteCharacter(1);
+        String response = mockMvc.perform(delete("/characters/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
