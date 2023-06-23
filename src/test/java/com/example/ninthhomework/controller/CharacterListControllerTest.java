@@ -150,7 +150,7 @@ class CharacterListControllerTest {
         String response = mockMvc.perform(post("/characters")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
-                .andExpect(status().is(201))
+                .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
         JSONAssert.assertEquals("""
                 {
