@@ -60,7 +60,6 @@ public class CharacterIntegrationTest {
             String response = mockMvc.perform(get("/characters/11"))
                     .andExpect(status().isNotFound())
                     .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
-
             JSONAssert.assertEquals("""
                     {
                         "path": "/characters/11",
@@ -132,7 +131,6 @@ public class CharacterIntegrationTest {
         String response = mockMvc.perform(MockMvcRequestBuilders.get("/characters?age=20"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
-        System.out.println(response);
         JSONAssert.assertEquals("""
                  [{
                    "id": 3,
@@ -149,7 +147,6 @@ public class CharacterIntegrationTest {
         String response = mockMvc.perform(MockMvcRequestBuilders.get("/characters?age=100"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
-        System.out.println(response);
         JSONAssert.assertEquals("""
                  [
                  ]
