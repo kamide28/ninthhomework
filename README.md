@@ -91,11 +91,24 @@ URLの共通部分：http://localhost:8080
 
 ### Curlコマンドと統合テスト確認事項
 
-| Request | Method/curlコマンド例                                                                                                                                                                                                                                                      | テスト確認事項                                              |
-|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------|
-| GET     | Character findCharacterById(@PathVariable("id") int id) <br> `curl --location 'http://localhost:8080/character/1'`                                                                                                                                                    | ・指定されたIDの情報をかえすこと<br>・IDが存在しない時はエラー情報を返すこと           |
-| GET     | List<CharacterResponse> selectCharacters()  <br> `curl --location 'http://localhost:8080/character-without-id'`                                                                                                                                                       | ・IDを含まない全件情報を返すこと                                    |
-| GET     | List<Character> findCharacterByAge(@RequestParam(name = "age", required = false) Integer age) <br> `curl --location 'http://localhost:8080/character?age=23'`                                                                                                         | ・指定された年齢より年上のキャラクターデータを返すこと<br>・年齢指定がない場合は全件データを返すこと |
-| POST    | ResponseEntity<Map<String, String>> create(@RequestBody @Validated CreateForm createForm, UriComponentsBuilder uriBuilder)<br> `curl --location 'http://localhost:8080/character' \--header 'Content-Type: application/json' \--data '{"name" :"メイ","age" : 5}'`      | ・自動採番されたIDに対して入力されたデータが登録できること<br> ・バリデーションが発動していること |
-| PACTH   | ResponseEntity<Map<String, String>> update(@PathVariable("id") int id, @RequestBody UpdateForm updateForm)  <br> `curl --location --request PATCH 'http://localhost:8080/character/21' \--header 'Content-Type: application/json' \--data '{"name" :"メイ","age" : 4}'` | ・指定されたIDデータが更新されること <br> ・IDが存在しない時はエラー情報を返すこと       |
-| DELETE  | ResponseEntity<Map<String, String>> delete(@PathVariable("id") int id) {characterService.deleteCharacter(id) <br> `curl --location --request DELETE 'http://localhost:8080/character/21'`                                                                             | ・指定されたIDの情報が削除されること<br> ・IDが存在しない時はエラー情報を返すこと        |
+※特にステータスコードに言及がないものはステータスコード200であることも確認する
+| Request | Method/curlコマンド例 | テスト確認事項 |
+|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
+| GET | Character findCharacterById(@PathVariable("id") int
+id) <br> `curl --location 'http://localhost:8080/character/1'`                                                                                                                                                    |
+・指定されたIDの情報をかえすこと<br>・IDが存在しない時はエラー情報を返すこと(ステータスコード404)                               |
+| GET | List<CharacterResponse>
+selectCharacters()  <br> `curl --location 'http://localhost:8080/character-without-id'`                                                                                                                                                       |
+・IDを含まない全件情報を返すこと |
+| GET | List<Character> findCharacterByAge(@RequestParam(name = "age", required = false) Integer
+age) <br> `curl --location 'http://localhost:8080/character?age=23'`                                                                                                         |
+・指定された年齢より年上のキャラクターデータを返すこと<br>・年齢指定がない場合は全件データを返すこと <br> ・年齢指定より年下のデータしか存在しない時空で返すこと |
+| POST | ResponseEntity<Map<String, String>> create(@RequestBody @Validated CreateForm createForm, UriComponentsBuilder
+uriBuilder)<br> `curl --location 'http://localhost:8080/character' \--header 'Content-Type: application/json' \--data '{"name" :"メイ","age" : 5}'`      |
+・自動採番されたIDに対して入力されたデータが登録できること<br> ・バリデーションが発動していること |
+| PACTH | ResponseEntity<Map<String, String>> update(@PathVariable("id") int id, @RequestBody UpdateForm
+updateForm)  <br> `curl --location --request PATCH 'http://localhost:8080/character/21' \--header 'Content-Type: application/json' \--data '{"name" :"メイ","age" : 4}'` |
+・指定されたIDデータが更新されること <br> ・IDが存在しない時はエラー情報を返すこと(ステータスコード404)                           |
+| DELETE | ResponseEntity<Map<String, String>> delete(@PathVariable("id") int id) {characterService.deleteCharacter(
+id) <br> `curl --location --request DELETE 'http://localhost:8080/character/21'`                                                                             |
+・指定されたIDの情報が削除されること<br> ・IDが存在しない時はエラー情報を返すこと(ステータスコード404)                            |
