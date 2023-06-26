@@ -50,7 +50,7 @@ public class CharacterIntegrationTest {
     @Test
     @DataSet(value = "characters.yml")
     @Transactional
-    void 存在しないIDで検索した時404NotFoundExceptionエラーが出ること() throws Exception {
+    void 存在しないIDで検索した時404エラーとなること() throws Exception {
         ZonedDateTime zonedDateTime = ZonedDateTime.of(
                 2023, 6, 26, 11, 11, 11, 111000000,
                 ZoneId.of("Asia/Tokyo"));
@@ -80,7 +80,6 @@ public class CharacterIntegrationTest {
         String response = mockMvc.perform(MockMvcRequestBuilders.get("/characters-without-id"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
-        System.out.println(response);
         JSONAssert.assertEquals("""
                 [
                   {
@@ -106,7 +105,6 @@ public class CharacterIntegrationTest {
         String response = mockMvc.perform(MockMvcRequestBuilders.get("/characters"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
-        System.out.println(response);
         JSONAssert.assertEquals("""
                 [
                   {
