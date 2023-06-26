@@ -125,26 +125,26 @@ public class CharacterIntegrationTest {
     }
 
     @Test
-    @DataSet("characters.yml")
+    @DataSet("boundary_character.yml")
     @Transactional
-    public void 年齢指定するとそれより年上のキャラクターデータを取得できステータスコード200であること() throws Exception {
-        String response = mockMvc.perform(MockMvcRequestBuilders.get("/characters?age=20"))
+    public void 年齢指定より年上のキャラクターデータを取得できステータスコード200であること() throws Exception {
+        String response = mockMvc.perform(MockMvcRequestBuilders.get("/characters?age=10"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
         JSONAssert.assertEquals("""
                  [{
-                   "id": 3,
-                   "name": "tatuo",
-                   "age": 32
+                   "id": 2,
+                   "name": "chihiro",
+                   "age": 11
                  }]
                 """, response, JSONCompareMode.STRICT);
     }
 
     @Test
-    @DataSet("characters.yml")
+    @DataSet("boundary_character.yml")
     @Transactional
-    public void 年齢指定より年下のデータしか存在しない時空で返しステータスコード200であること() throws Exception {
-        String response = mockMvc.perform(MockMvcRequestBuilders.get("/characters?age=100"))
+    public void 年齢指定以下のデータしか存在しない時空で返しステータスコード200であること() throws Exception {
+        String response = mockMvc.perform(MockMvcRequestBuilders.get("/characters?age=11"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
         JSONAssert.assertEquals("""
